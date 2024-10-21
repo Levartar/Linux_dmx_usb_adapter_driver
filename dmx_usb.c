@@ -58,8 +58,9 @@ module_param(debug, int, S_IRUGO | S_IWUSR);
 MODULE_PARM_DESC(debug, "Debug enabled or not");
 
 static struct usb_device_id dmx_usb_table [] = {
-	{ USB_DEVICE_VER(FTDI_VID, FTDI_8U232AM_PID, 0x400, 0xffff) },
-	{ USB_DEVICE_VER(FTDI_VID, FTDI_8U232AM_ALT_PID, 0x400, 0xffff) },
+	{ USB_DEVICE(LIX_VID, LIX_SIO_PID) }, // Lixada USB-to-DMX512
+	//{ USB_DEVICE_VER(FTDI_VID, FTDI_8U232AM_PID, 0x400, 0xffff) },
+	//{ USB_DEVICE_VER(FTDI_VID, FTDI_8U232AM_ALT_PID, 0x400, 0xffff) },
 	{ }                                             /* Terminating entry */
 };
 
