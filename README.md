@@ -1,7 +1,20 @@
 # DMX USB Driver
 
-The DMX USB driver is a Linux 4.X kernel driver for the Enttec
-DMX USB dongle ( http://www.enttec.com/dmxusb.php )
+The DMX USB driver is a Linux 6.X kernel driver for the Lixada USB dongle ( http://www.enttec.com/dmxusb.php )
+
+## This Driver does not work currently
+Another option is using LibUSB and directly transfering data to the adapter. This does not need a driver and works perfectly fine
+```
+int ret = libusb_control_transfer(handle,
+                                      LIBUSB_ENDPOINT_OUT | LIBUSB_REQUEST_TYPE_VENDOR | LIBUSB_RECIPIENT_DEVICE,
+                                      2,               // Command: Set Channel Range
+                                      8,               // wValue: Number of channels to set (8 channels)
+                                      0,               // wIndex: Starting at channel 1 (index 0)
+                                      data,            // Data buffer containing the values
+                                      sizeof(data),    // Length of the data buffer (8 bytes)
+                                      5000);           // Timeout in milliseconds
+```
+
 
 ## Building the driver
 
@@ -23,6 +36,7 @@ After that you might want to reboot to make sure you are running the
 maybe updated kernel.
 
 Than get the kernel source code;
+!!KERNEL Source needs to be changed to https://github.com/RPi-Distro/rpi-source?tab=readme-ov-file#examples-on-how-to-build-various-modules !!
 
 ```
 # Get rpi-source
@@ -42,13 +56,5 @@ Now you should be ready to build the DMX USB module.
 
 ## Problems loading the right driver.
 
-A "small" problem to solve was to make the kernel clear that it should 
-use my driver for the dongle and not the standard usbserial driver. 
-Since I don't have any other USBserial devices with the samechip type I 
-just removed the `ftdi_sio.ko` module, and changed the `/etc/hotplug/usb.distmap` 
-to point to my module. To support both the `ftdi_sio.o` module and the 
-`dmx_usb.o` module the `ftdi_sio.o` module should be patched and the Product ID 
-for the FT232BM should be removed from it, this will mean all other 
-serial-usb devices are still supported just not the one with FT232BM chips, 
-since it isn't possible to differentiate DMX-USB and normal-serial versions.
+
 
