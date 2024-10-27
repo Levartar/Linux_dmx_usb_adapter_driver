@@ -1,6 +1,6 @@
 # DMX USB Driver
 
-The DMX USB driver is a Linux 6.X kernel driver for the Lixada USB dongle ( http://www.enttec.com/dmxusb.php )
+The DMX USB driver is a Linux 6.X kernel driver for the Lixada USB dongle
 
 ## This Driver does not work currently
 Another option is using LibUSB and directly transfering data to the adapter. This does not need a driver and works perfectly fine
@@ -53,8 +53,6 @@ rpi-source
 ```
 
 Now you should be ready to build the DMX USB module.
-
-## Problems loading the right driver.
 
 
 
